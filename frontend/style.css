@@ -50,7 +50,7 @@ header {
     background: #24d414;
     padding: 10px;
     display: flex;
-    justify-content: space-around;
+    justify-content: center; 
 }
 
 header h1 {
