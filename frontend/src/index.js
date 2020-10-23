@@ -26,7 +26,6 @@ class Movie {
         return `<div class="card">
                   <h2>${this.title} (${this.year})</h2>
                   <h3>${this.starring}</h3>
-                  <h4 class="tag-line">NOT SURE ABOUT THIS</h4> 
                   <a href=${this.link} target="_blank"><img src=${this.image} class="game-image" /></a>
                   <p>${this.tag_line}<p>
                   <button data-movie-id=${this.id} class="like-btn">♡</button>
@@ -44,8 +43,6 @@ function putMoviesOnDom(movieArray){
 }
 
 
-
-
 function putReviewsOnDom(reviewsArray){
     reviewsCollection.innerHTML = `<h2 class="subheader">My Reviews (sort of)</h2>
                                <h4 class="back-link">←Back to Movies</h4>`
@@ -53,7 +50,6 @@ function putReviewsOnDom(reviewsArray){
         reviewsCollection.innerHTML += `<div class="card">
           <h2>${review.movie.title} (${review.movie.year})</h2>
           <h3>${review.movie.starring}</h3>
-          <h4 class="tag-line">NOT SURE ABOUT THIS</h4>
           <a href=${review.movie.link} target="_blank"><img src=${review.movie.image} class="movie-image" /></a>
           <p>${review.movie.tag_line}<p>
           <button data-movie-id=${review.movie.id} class="like-btn" style="color:red;">♡</button>
@@ -62,18 +58,19 @@ function putReviewsOnDom(reviewsArray){
 } 
      
 
-
 function fetchMovies(){
     fetch(MOVIES_URL)
     .then(res => res.json())
     .then(movies => putMoviesOnDom(movies))
 }
 
+
 function fetchReviews(){
     fetch(BASE_URL + '/users/' + currentUser.id + '/reviews')
     .then(res => res.json())
     .then(reviews => putReviewsOnDom(reviews))
 }
+
 
 signupForm.addEventListener('submit', function(e){
     e.preventDefault()
@@ -102,6 +99,7 @@ signupForm.addEventListener('submit', function(e){
     )
 })
 
+
 movieCollection.addEventListener('click', function(e) {
     if (e.target.className == "reviews-link") {
         movieCollection.style.display = 'none';
@@ -118,6 +116,7 @@ reviewsCollection.addEventListener('click', function(e) {
     }
 })
 
+
 logout.addEventListener('click', function(e) {
  if (e.target.className == "logout") {
      movieCollection.style.display = 'none';
@@ -126,6 +125,7 @@ logout.addEventListener('click', function(e) {
  }
 })
 
+
 function loggedInUser(object){
     currentUser = object
     signupForm.style.display = 'none'
@@ -133,10 +133,6 @@ function loggedInUser(object){
     logout.innerText = "Logout"
     fetchMovies()
 }
-
-
-
-
 
 
 movieCollection.addEventListener('click', function(e){

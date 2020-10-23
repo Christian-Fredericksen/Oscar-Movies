@@ -26,6 +26,12 @@ button {
   /* justify-self: right; */
 }
 
+.oscar-image{
+  justify-self: center;
+  height: 3rem;
+  width: auto;
+}
+
 .movie-image {
   justify-self: center;
   height: 12rem;
@@ -41,7 +47,7 @@ button {
 }
 
 header {
-    background: #008080;
+    background: #24d414;
     padding: 10px;
     display: flex;
     justify-content: space-between;
@@ -53,7 +59,7 @@ header h1 {
 }
 
 header span {
-    color: red;
+    color: #ffff00;
     font-size: 20px;
 }
 

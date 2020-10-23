@@ -1,0 +1,30 @@
+{
+  "name": "oscar",
+  "version": "1.0.0",
+  "description": "a JavaScript and Rails SPA",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo 'hot dog'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Christian-Fredericksen/Oscar-Movies.git"
+  },
+  "keywords": [
+    "oscar",
+    "Oscar",
+    "movies",
+    "JavaScript",
+    "Rails",
+    "API"
+  ],
+  "author": "Christian Fredericksen",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Christian-Fredericksen/Oscar-Movies/issues"
+  },
+  "homepage": "https://github.com/Christian-Fredericksen/Oscar-Movies#readme",
+  "dependencies": {
+    "react": "^17.0.1"
+  }
+}
