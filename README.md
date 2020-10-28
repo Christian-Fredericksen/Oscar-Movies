@@ -1,1 +1,6 @@
 # Oscar-Movies
+This is an app that uses a Rails backend and a JavaScript frontend. In this app you can see a list of Oscar winning movies and like any of them.
+
+In order to run the app you need to run the Rails server by typing: cd backend that will move you to the folder that we need. Then you need to type inside the termianl rails s and the server will run. After that you need to cd back to the Oscar by typing cd .. Then cd frontend After moving to the frontend folder you need to open index.html to the browser, to do that you need to enter this command to the terminal explorer.exe index.html The browser will open a new window with the Signup page.
+
+You can put a username and password to see all the movies we have. Then you will see a list of movies, any movie you like will add to your favorites collection. You can accsses your favorates movies by clicking on "View My Reviews" link. You can unlike the movie by clicking on the heart button. Any movie you want to know more about, you can click on the image of the movie and it will take to it's IMDB page, where you can see a lot more information about the movie.

@@ -26,21 +26,25 @@ class Movie {
         return `<div class="card">
                   <h2>${this.title} (${this.year})</h2>
                   <h3>${this.starring}</h3>
-                  <a href=${this.link} target="_blank"><img src=${this.image} class="game-image" /></a>
-                  <p>${this.tag_line}<p>
+                  <a href=${this.link} target="_blank"><img src=${this.image} class="movie-image" /></a>
+                  <p>${this.tag_line}</p>
                   <button data-movie-id=${this.id} class="like-btn">♡</button>
                 </div>`
     }
 }
 
+
+
+
 function putMoviesOnDom(movieArray){
     movieCollection.innerHTML = `<h2 class="subheader">Every Best Picture Winner Since the Year 2000</h2>
-                                <h4 class="reviews-link">View My Reviews ♡</h4>`
-                            
+                                <h4 class="reviews-link">View My Reviews ♡ </h4>`
+                                                   
     movieArray.forEach(movie => {
         movieCollection.innerHTML += new Movie(movie).render()
     })
 }
+
 
 
 function putReviewsOnDom(reviewsArray){
