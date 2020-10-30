@@ -35,19 +35,46 @@ class Movie {
 
 
 
+function putMoviesOnDom(movieArray) {
 
-function putMoviesOnDom(movieArray){
     movieCollection.innerHTML = `<h2 class="subheader">Every Best Picture Winner Since the Year 2000</h2>
-                                <h4 class="reviews-link">View My Reviews ♡ </h4>`
-                                                   
+                                <h4 class="reviews-link">View My Reviews ♡ </h4>
+                                <button  class="sort-btn">Sort</button>`
+
     movieArray.forEach(movie => {
         movieCollection.innerHTML += new Movie(movie).render()
     })
+    
+    const sortButton = document.querySelector('.sort-btn')
+
+    sortButton.addEventListener('click', function () {
+        movieCollection.innerHTML = " ";
+        let newMovieArray = movieArray.map(movie => { return new Movie(movie) })
+        
+        
+        newMovieArray.sort(function(a, b) {
+            let titleA = a.title; // ignore upper and lowercase
+            let titleB = b.title; // ignore upper and lowercase
+            if (titleA < titleB) {
+              return -1;
+            }
+            if (titleA > titleB) {
+              return 1;
+            }
+    })
+    newMovieArray.forEach(movie => {
+        movieCollection.innerHTML += movie.render()
+    })
+
+})
 }
 
 
 
-function putReviewsOnDom(reviewsArray){
+
+
+
+function putReviewsOnDom(reviewsArray) {
     reviewsCollection.innerHTML = `<h2 class="subheader">My Reviews (sort of)</h2>
                                <h4 class="back-link">←Back to Movies</h4>`
     reviewsArray.forEach(review => {
@@ -59,24 +86,24 @@ function putReviewsOnDom(reviewsArray){
           <button data-movie-id=${review.movie.id} class="like-btn" style="color:red;">♡</button>
         </div>`
     })
-} 
-     
+}
 
-function fetchMovies(){
+
+function fetchMovies() {
     fetch(MOVIES_URL)
-    .then(res => res.json())
-    .then(movies => putMoviesOnDom(movies))
+        .then(res => res.json())
+        .then(movies => putMoviesOnDom(movies))
 }
 
 
-function fetchReviews(){
+function fetchReviews() {
     fetch(BASE_URL + '/users/' + currentUser.id + '/reviews')
-    .then(res => res.json())
-    .then(reviews => putReviewsOnDom(reviews))
+        .then(res => res.json())
+        .then(reviews => putReviewsOnDom(reviews))
 }
 
 
-signupForm.addEventListener('submit', function(e){
+signupForm.addEventListener('submit', function (e) {
     e.preventDefault()
     fetch(USERS_URL, {
         method: "POST",
@@ -91,29 +118,29 @@ signupForm.addEventListener('submit', function(e){
             }
         })
     })
-    .then(res => res.json())
-    .then(function(object){
-        if (object.message) {
-            alert(object.message)
+        .then(res => res.json())
+        .then(function (object) {
+            if (object.message) {
+                alert(object.message)
+            }
+            else {
+                loggedInUser(object)
+            }
         }
-        else {
-        loggedInUser(object)
-        }
-    }
-    )
+        )
 })
 
 
-movieCollection.addEventListener('click', function(e) {
+movieCollection.addEventListener('click', function (e) {
     if (e.target.className == "reviews-link") {
         movieCollection.style.display = 'none';
         fetchReviews();
         reviewsCollection.style.display = 'initial';
     }
 })
- 
 
-reviewsCollection.addEventListener('click', function(e) {
+
+reviewsCollection.addEventListener('click', function (e) {
     if (e.target.className == "back-link") {
         reviewsCollection.style.display = 'none';
         movieCollection.style.display = 'initial';
@@ -121,16 +148,16 @@ reviewsCollection.addEventListener('click', function(e) {
 })
 
 
-logout.addEventListener('click', function(e) {
- if (e.target.className == "logout") {
-     movieCollection.style.display = 'none';
-     welcome.style.display = 'none';
-     signupForm.style.display = 'initial';
- }
+logout.addEventListener('click', function (e) {
+    if (e.target.className == "logout") {
+        movieCollection.style.display = 'none';
+        welcome.style.display = 'none';
+        signupForm.style.display = 'initial';
+    }
 })
 
 
-function loggedInUser(object){
+function loggedInUser(object) {
     currentUser = object
     signupForm.style.display = 'none'
     welcome.innerHTML = `<h3>Hello, <i>${currentUser.email}</i>!</h3>`
@@ -139,25 +166,26 @@ function loggedInUser(object){
 }
 
 
-movieCollection.addEventListener('click', function(e){
+movieCollection.addEventListener('click', function (e) {
     // console.log(event.target.className, event.target.style.color)
     // e.preventDefault() was preventing images from being clickable
     if ((e.target.className == "like-btn") && (e.target.style.color !== 'red')) {
         let target = e.target
-            fetch(REVIEWS_URL, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    Accept: "application/json"
-                },
-                body: JSON.stringify({
-                        user_id: `${currentUser.id}`,
-                        movie_id: `${e.target.dataset.movieId}`
-                })
+        fetch(REVIEWS_URL, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json"
+            },
+            body: JSON.stringify({
+                user_id: `${currentUser.id}`,
+                movie_id: `${e.target.dataset.movieId}`
+            })
         })
-        .then( res => res.json())
-        .then( res => target.dataset.reviewId = res.id);
-        e.target.style.color = 'red';}
+            .then(res => res.json())
+            .then(res => target.dataset.reviewId = res.id);
+        e.target.style.color = 'red';
+    }
     else if ((e.target.className == "like-btn") && (e.target.style.color == 'red')) {
         e.target.style.color = 'black';
         fetch(REVIEWS_URL + '/' + e.target.dataset.reviewId, {

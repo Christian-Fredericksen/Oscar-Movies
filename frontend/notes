@@ -1,0 +1,11 @@
+    movieCollection.innerHTML += `<h5 class="L">hahahaha</h5>`
+
+    // const elephant = document.querySelector('.laugh')
+
+    // elephant += `<p> this is really stressing me out </p>`
+
+    var paragraph = document.querySelector(".L");
+
+    var text = document.createTextNode("This just got added");
+
+    paragraph.appendChild(text);
